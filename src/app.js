@@ -8,6 +8,8 @@ import './styles/styles.scss';
 import getVisibleExpenses from './selectors/cards';
 import { addCard } from './actions/cards'
 
+import './firebase/firebase';
+
 const store = configureStore();
 
 store.dispatch(addCard({ description: 'Water bill', amount: 150, createdAt: 4500 }));
