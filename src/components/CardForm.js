@@ -2,18 +2,37 @@ import React from 'react';
 import moment from 'moment';
 
 import 'react-dates/initialize';
-import { SingleDatePicker } from 'react-dates';
+//import { SingleDatePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 
-export default class CardForm extends React.Component {
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+import Typography from '@material-ui/core/Typography';
+
+const styles = theme => ({
+    header: {
+        marginTop: 14,
+        marginLeft: 10,
+        marginRight: 10,
+    },
+    textField: {
+        marginLeft: 10,
+        marginRight: 10,
+        width: 200,
+    },
+});
+
+class CardForm extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            description: props.card? props.card.description : '',
-            note: props.card? props.card.note : '',
-            amount: props.card? (props.card.amount / 100).toString() : '',
-            createdAt: props.card? moment(props.card.createdAt) : moment(),
+            description: props.card ? props.card.description : '',
+            note: props.card ? props.card.note : '',
+            amount: props.card ? (props.card.amount / 100).toString() : '',
+            createdAt: props.card ? moment(props.card.createdAt) : moment(),
             calendarFocused: false,
             error: ''
         };
@@ -31,26 +50,26 @@ export default class CardForm extends React.Component {
 
     onAmountChange = (e) => {
         const amount = e.target.value;
-        if(!amount || amount.match(/^\d{1,}(\.\d{0,2})?$/)) {
+        if (!amount || amount.match(/^\d{1,}(\.\d{0,2})?$/)) {
             this.setState(() => ({ amount }));
         }
     };
 
     onDateChange = (createdAt) => {
         if (createdAt) {
-            this.setState(() => ({  createdAt}));
+            this.setState(() => ({ createdAt }));
         }
     };
 
     onFocusChange = ({ focused }) => {
-        this.setState(() => ({calendarFocused: focused}));
+        this.setState(() => ({ calendarFocused: focused }));
     };
 
     onSubmit = (e) => {
         e.preventDefault();
 
         if (!this.state.description || !this.state.amount) {
-            this.setState(() => ({ error: 'Please provide description and amount.'}));
+            this.setState(() => ({ error: 'Please provide description and amount.' }));
         } else {
             this.setState(() => ({ error: '' }));
             this.props.onSubmit({
@@ -64,38 +83,59 @@ export default class CardForm extends React.Component {
     };
 
     render() {
+        const { classes } = this.props;
         return (
-         <div>
-             {this.state.error && <p>{this.state.error}</p>}
-             <form action="" onSubmit={this.onSubmit}>
-                 <input
-                     type="text"
-                     placeholder="Description"
-                     autoFocus
-                     value={this.state.description}
-                     onChange={this.onDescriptionChange}
-                 />
-                 <input
-                     type="text"
-                     placeholder="Amount"
-                     value={this.state.amount}
-                     onChange={this.onAmountChange}
-                 />
-                 <SingleDatePicker
-                 date={this.state.createdAt}
-                 onDateChange={this.onDateChange}
-                 focused={this.state.calendarFocused}
-                 onFocusChange={this.onFocusChange}
-                 numberOfMonths={1}
-                 />
-                 <textarea
-                     placeholder="Add a note for your task announcement (optional)."
-                     value={this.state.note}
-                     onChange={this.onNoteChange}
-                 />
-                 <button>Add task announcement</button>
-             </form>
-         </div>
+            <div>
+                <Typography variant="display2" gutterBottom className={classes.header}>Add task announcement</Typography>
+                {this.state.error && <p>{this.state.error}</p>}
+                <form action="" onSubmit={this.onSubmit}>
+                    <TextField
+                        className={classes.textField}
+                        placeholder="Description"
+                        autoFocus
+                        value={this.state.description}
+                        onChange={this.onDescriptionChange}
+                    />
+                    <TextField
+                        className={classes.textField}
+                        placeholder="Amount"
+                        value={this.state.amount}
+                        onChange={this.onAmountChange}
+                    />
+                    <TextField
+                        className={classes.textField}
+                        id="date"
+                        type="date"
+                        defaultValue="2017-05-24"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        date={this.state.createdAt}
+                        onDateChange={this.onDateChange}
+                        focused={this.state.calendarFocused}
+                        onFocusChange={this.onFocusChange}
+                        numberOfMonths={1}
+                    />
+                    <TextField
+                        id="standard-multiline-flexible"
+                        placeholder="Note"
+                        multiline
+                        rowsMax="10"
+                        value={this.state.multiline}
+                        className={classes.textField}
+                        margin="normal"
+                        value={this.state.note}
+                        onChange={this.onNoteChange}
+                    />
+                    <Button variant="contained" color="secondary">Submit</Button>
+                </form>
+            </div>
         )
     }
 }
+
+CardForm.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(CardForm);

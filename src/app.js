@@ -18,10 +18,8 @@ const theme = createMuiTheme({
             contrastText: "#fff",
         },
         secondary: {
-            light: '#0066ff',
-            main: '#0044ff',
+            main: '#ef5350',
             // dark: will be calculated from palette.secondary.main,
-            contrastText: '#ffcc00',
         },
         // error: will use the default color
     },

@@ -5,7 +5,6 @@ import { addCard } from '../actions/cards';
 
 const AddCardPage = (props) => (
     <div>
-        <h1>Add task announcement</h1>
         <CardForm
             onSubmit={(card) => {
                 props.dispatch(addCard(card));
