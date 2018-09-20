@@ -1,12 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-
+import AppBar from "./AppBar"
+import Tabs from "./Tabs"
 const Header = () => (
     <header>
-        <h1>Jobba</h1>
-        <NavLink to="/" activeClassName="is-active" exact={true}>Home Page</NavLink>
-        <NavLink to="/create" activeClassName="is-active">Add Task</NavLink>
-        <NavLink to="/help" activeClassName="is-active">Help</NavLink>
+        <AppBar></AppBar>
+        <Tabs></Tabs>
     </header>
 );
 
