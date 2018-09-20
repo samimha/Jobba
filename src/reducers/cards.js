@@ -22,6 +22,8 @@ export default (state = cardsReducerDefaultState, action) => {
                     return card;
                 }
             });
+        case 'SET_CARDS':
+            return action.cards;
         default:
             return state;
     }

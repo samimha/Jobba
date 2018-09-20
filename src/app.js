@@ -6,7 +6,9 @@ import { Provider } from 'react-redux';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import './styles/styles.scss';
 import getVisibleExpenses from './selectors/cards';
-import { addCard } from './actions/cards'
+import { startSetCards } from './actions/cards'
+
+import './firebase/firebase';
 
 const store = configureStore();
 const theme = createMuiTheme({
@@ -25,11 +27,6 @@ const theme = createMuiTheme({
     },
 });
 
-
-store.dispatch(addCard({ description: 'Renkaiden vaihtoa', amount: 15.0, createdAt: 1537430361578, note: "Renkaiden vaihto on kivaa ja mukavaa puuhaa" }));
-store.dispatch(addCard({ description: 'Sohvan kanto', amount: 20, createdAt: 1537420361578,note:"Tarttisin jeesiä punaisen sohvan kantamisessa kolmoskerrokseen" }));
-store.dispatch(addCard({ description: 'Tietonaattorini putsaus', amount: 14, createdAt: 1527430161578, note:"Kotikoneeni on täynnä roskaa ja tarvitsisin jotain osaavaa henkilöä puhdistamaan sen, jotta näen taas iltasanomat internetseistä" }));
-
 const state = store.getState();
 const visibleExpenses = getVisibleExpenses(state.cards, state.filters);
 console.log(visibleExpenses);
@@ -43,4 +40,8 @@ const jsx = (
 
 );
 
-ReactDOM.render(jsx, document.getElementById('app'));
+ReactDOM.render(<p>Loading...</p>, document.getElementById('app'));
+
+store.dispatch(startSetCards()).then(() => {
+    ReactDOM.render(jsx, document.getElementById('app'));
+});
