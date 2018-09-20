@@ -28,9 +28,9 @@ const theme = createMuiTheme({
 });
 
 
-store.dispatch(addCard({ description: 'Water bill', amount: 150, createdAt: 4500 }));
-store.dispatch(addCard({ description: 'Gas bill', amount: 80, createdAt: 1000 }));
-store.dispatch(addCard({ description: 'Rent', amount: 1420, createdAt: 109 }));
+store.dispatch(addCard({ description: 'Renkaiden vaihtoa', amount: 15.0, createdAt: 1537430361578, note: "Renkaiden vaihto on kivaa ja mukavaa puuhaa" }));
+store.dispatch(addCard({ description: 'Sohvan kanto', amount: 20, createdAt: 1537420361578,note:"Tarttisin jeesiä punaisen sohvan kantamisessa kolmoskerrokseen" }));
+store.dispatch(addCard({ description: 'Tietonaattorini putsaus', amount: 14, createdAt: 1527430161578, note:"Kotikoneeni on täynnä roskaa ja tarvitsisin jotain osaavaa henkilöä puhdistamaan sen, jotta näen taas iltasanomat internetseistä" }));
 
 const state = store.getState();
 const visibleExpenses = getVisibleExpenses(state.cards, state.filters);
