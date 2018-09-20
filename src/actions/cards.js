@@ -1,23 +1,34 @@
 import uuid from 'uuid';
+import database from '../firebase/firebase';
 
 // ADD_EXPENSE
-export const addCard = (
-    {
-        description = '',
-        note = '',
-        amount = 0,
-        createdAt = 0
-    } = {}
-) => ({
+export const addCard = (card) => ({
     type: 'ADD_CARD',
-    card: {
-        id: uuid(),
-        description,
-        note,
-        amount,
-        createdAt
-    }
+    card
 });
+
+export const startAddCard = (cardData = {}) =>  {
+    return (dispatch) => {
+        const  {
+            description = '',
+            note = '',
+            amount = 0,
+            createdAt = 0
+        } = cardData;
+        const card = { description, note, amount, createdAt };
+
+        database.ref('cards').push(card).then((ref) => {
+            console.log(card);
+            dispatch(addCard({
+                id: ref.key,
+                ...card
+            }));
+        }).catch((e) => {
+            console.log('Error ocurred.', e);
+        });
+    };
+};
+
 
 // REMOVE_EXPENSE
 export const removeCard = ({ id } = {}) => ({

@@ -6,15 +6,15 @@ import { Provider } from 'react-redux';
 
 import './styles/styles.scss';
 import getVisibleExpenses from './selectors/cards';
-import { addCard } from './actions/cards'
+import { startAddCard } from './actions/cards'
 
 import './firebase/firebase';
 
 const store = configureStore();
 
-store.dispatch(addCard({ description: 'Water bill', amount: 150, createdAt: 4500 }));
-store.dispatch(addCard({ description: 'Gas bill', amount: 80, createdAt: 1000 }));
-store.dispatch(addCard({ description: 'Rent', amount: 1420, createdAt: 109 }));
+store.dispatch(startAddCard({ description: 'Water bill', amount: 150, createdAt: 4500 }));
+store.dispatch(startAddCard({ description: 'Gas bill', amount: 80, createdAt: 1000 }));
+store.dispatch(startAddCard({ description: 'Rent', amount: 1420, createdAt: 109 }));
 
 const state = store.getState();
 const visibleExpenses = getVisibleExpenses(state.cards, state.filters);

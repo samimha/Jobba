@@ -10,7 +10,7 @@ export default class CardForm extends React.Component {
         super(props);
 
         this.state = {
-            description: props.card? props.card.description : '',
+            description: props.card ? props.card.description : '',
             note: props.card? props.card.note : '',
             amount: props.card? (props.card.amount / 100).toString() : '',
             createdAt: props.card? moment(props.card.createdAt) : moment(),
