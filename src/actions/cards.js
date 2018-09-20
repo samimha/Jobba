@@ -31,10 +31,20 @@ export const startAddCard = (cardData = {}) =>  {
 
 
 // REMOVE_EXPENSE
-export const removeCard = ({ id } = {}) => ({
+export const removeCard = (id  = {}) => ({
     type: 'REMOVE_CARD',
     id
 });
+
+export const startRemoveCard = ({ id }) => {
+    return (dispatch) => {
+        database.ref('cards/' + id).remove().then(() => {
+            dispatch(removeCard(id));
+        }).catch((e) => {
+            console.log('Error occurred.', e);
+        });
+    };
+};
 
 // EDIT_EXPENSE
 export const editCard = (id, updates) => ({
