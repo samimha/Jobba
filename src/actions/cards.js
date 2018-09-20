@@ -53,6 +53,19 @@ export const editCard = (id, updates) => ({
     updates
 });
 
+export const startEditCard = (id, updates) => {
+    return (dispatch) => {
+        return database.ref('cards/' + id).update({...updates}).then(() => {
+            dispatch(editCard({
+                id: id,
+                updates
+            }));
+        }).catch((e) => {
+            console.log('Error occurred.', e);
+        });
+    };
+};
+
 // SET_CARDS
 export const setCards = (cards) => ({
     type: 'SET_CARDS',
