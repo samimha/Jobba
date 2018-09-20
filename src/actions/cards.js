@@ -43,3 +43,30 @@ export const editCard = (id, updates) => ({
     updates
 });
 
+// SET_CARDS
+export const setCards = (cards) => ({
+    type: 'SET_CARDS',
+    cards
+});
+
+export const startSetCards = () => {
+    return (dispatch) => {
+        return database.ref('cards')
+            .once('value')
+            .then((snapshot) => {
+                const cards = [];
+
+                snapshot.forEach((childSnapshot) => {
+                    cards.push({
+                        id: childSnapshot.key,
+                        ...childSnapshot.val()
+                    });
+                });
+
+                dispatch(setCards(cards));
+            }).catch((e) => {
+            console.log('Error ocurred while fetching cards for the first time.', e);
+        });
+
+    }
+};
