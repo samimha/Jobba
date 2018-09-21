@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CardForm from './CardForm';
-import { editCard, removeCard } from '../actions/cards';
+import { startEditCard, startRemoveCard } from '../actions/cards';
 
 
 // EXPENSES TO CARDS !!!!
@@ -10,12 +10,12 @@ const EditCardPage = (props) => (
         <CardForm
             card={props.card}
             onSubmit={(card) => {
-                props.dispatch(editCard(props.card.id, card));
+                props.dispatch(startEditCard(props.card.id, card));
                 props.history.push('/'); // redirects to dashboard/feed
             }}
         />
         <button onClick={() => {
-            props.dispatch(removeCard({ id: props.card.id }));
+            props.dispatch(startRemoveCard({ id: props.card.id }));
             props.history.push('/'); // redirects to dashboard/feed
         }}>Remove</button>
     </div>
