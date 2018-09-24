@@ -13,19 +13,25 @@ import PublicRoute from './PublicRoute';
 
 export const history = createHistory();
 
-const AppRouter = () => (
-    <Router history={history}>
-        <div>
-            <Switch>
-                <PublicRoute path="/" component={LoginPage} exact={true}/>
-                <PrivateRoute path="/dashboard" component={JobbaDashboardPage}/>
-                <PrivateRoute path="/create" component={AddCardPage}/>
-                <PrivateRoute path="/edit/:id" component={EditCardPage}/>
-                {/*<Route path="/help" component={HelpPage}/>*/}
-                <Route component={NotFoundPage}/>
-            </Switch>
-        </div>
-    </Router>
-);
+
+class AppRouter extends React.Component {
+    render() {
+        return (
+            <Router history={history}>
+                <div>
+                    <Switch>
+                        <PublicRoute path="/" component={LoginPage} exact={true}/>
+                        <PrivateRoute path="/dashboard" component={JobbaDashboardPage}/>
+                        <PrivateRoute path="/create" component={AddCardPage}/>
+                        <PrivateRoute path="/edit/:id" component={EditCardPage}/>
+                        {/*<Route path="/help" component={HelpPage}/>*/}
+                        <Route component={NotFoundPage}/>
+                    </Switch>
+                </div>
+            </Router>
+        );
+    };
+
+};
 
 export default AppRouter;

@@ -12,7 +12,6 @@ export class AddCardPage extends React.Component {
     render() {
         return(
             <div>
-                <h1>Add task announcement</h1>
                 <CardForm
                     onSubmit={this.onSubmit}
                 />
