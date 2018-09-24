@@ -1,16 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CardListItem from './CardListItem';
+import ComplexCard from "./ComplexCard";
 import selectCards from '../selectors/cards';
+import Grid from "@material-ui/core/Grid";
 
 const CardList = (props) => (
     <div>
-        <h1>List of announcements</h1>
-        {props.cards.map((card) => {
-            return (
-                <CardListItem key={card.id} {...card}/>
-            );
-        })}
+        <Grid
+            container
+            direction="column"
+            justify="center"
+            alignItems="center"
+        >
+            {/* <h1>List of announcements</h1> */}
+            {props.cards.map((card) => {
+                return (
+                    <Grid>
+                        <ComplexCard key={card.id} {...card} />
+                    </Grid>
+                );
+            })}
+        </Grid>
     </div>
 );
 
