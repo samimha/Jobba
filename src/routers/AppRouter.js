@@ -1,30 +1,37 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch, } from 'react-router-dom';
-import AddExpensePage from '../components/AddCardPage';
-import ExpenseDashboardPage from '../components/JobbaDashboardPage';
-import EditExpensePage from '../components/EditCardPage';
-import Header from '../components/Header';
+import { Router, Route, Switch, } from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory';
+import AddCardPage from '../components/AddCardPage';
+import JobbaDashboardPage from '../components/JobbaDashboardPage';
+import EditCardPage from '../components/EditCardPage';
+
 import HelpPage from '../components/HelpPage';
 import NotFoundPage from '../components/NotFoundPage';
+import LoginPage from "../components/LoginPage";
+import PrivateRoute from './PrivateRoute';
+import PublicRoute from './PublicRoute';
+
+export const history = createHistory();
 
 
 class AppRouter extends React.Component {
     render() {
         return (
-            <BrowserRouter>
+            <Router history={history}>
                 <div>
-                    <Header />
                     <Switch>
-                        <Route path="/" component={ExpenseDashboardPage} exact={true} />
-                        <Route path="/create" component={AddExpensePage} />
-                        <Route path="/edit/:id" component={EditExpensePage} />
-                        <Route path="/help" component={HelpPage} />
-                        <Route component={NotFoundPage} />
+                        <PublicRoute path="/" component={LoginPage} exact={true}/>
+                        <PrivateRoute path="/dashboard" component={JobbaDashboardPage}/>
+                        <PrivateRoute path="/create" component={AddCardPage}/>
+                        <PrivateRoute path="/edit/:id" component={EditCardPage}/>
+                        {/*<Route path="/help" component={HelpPage}/>*/}
+                        <Route component={NotFoundPage}/>
                     </Switch>
                 </div>
-            </BrowserRouter>
-        )
-    }
+            </Router>
+        );
+    };
+
 };
 
 export default AppRouter;

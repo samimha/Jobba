@@ -1,12 +1,20 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { startLogout } from '../actions/auth';
 import AppBar from "./AppBar"
 import Tabs from "./Tabs"
-const Header = () => (
+
+export const Header = ({ startLogout}) => (
     <header>
+        <button onClick={startLogout}>Logout</button>
         <AppBar></AppBar>
         <Tabs></Tabs>
     </header>
 );
 
-export default Header;
+const mapDispatchToProps = (dispatch) => ({
+    startLogout: () => dispatch(startLogout())
+});
+
+export default connect(undefined, mapDispatchToProps)(Header);
