@@ -4,7 +4,9 @@ import moment from 'moment';
 import 'react-dates/initialize';
 //import { SingleDatePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
+import { SingleDatePicker } from 'react-dates';
 
+//Material-UI
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
@@ -17,7 +19,7 @@ const styles = theme => ({
         marginLeft: 10,
         marginRight: 10,
     },
-    textField: {
+    input: {
         marginLeft: 10,
         marginRight: 10,
         width: 200,
@@ -67,6 +69,7 @@ class CardForm extends React.Component {
 
     onSubmit = (e) => {
         e.preventDefault();
+        console.log('submitted');
 
         if (!this.state.description || !this.state.amount) {
             this.setState(() => ({ error: 'Please provide description and amount.' }));
@@ -90,44 +93,49 @@ class CardForm extends React.Component {
                 {this.state.error && <p>{this.state.error}</p>}
                 <form action="" onSubmit={this.onSubmit}>
                     <TextField
-                        className={classes.textField}
+                        className={classes.input}
                         placeholder="Description"
                         autoFocus
                         value={this.state.description}
                         onChange={this.onDescriptionChange}
                     />
                     <TextField
-                        className={classes.textField}
+                        className={classes.input}
                         placeholder="Amount"
                         value={this.state.amount}
                         onChange={this.onAmountChange}
                     />
-                    <TextField
-                        className={classes.textField}
-                        id="date"
-                        type="date"
-                        defaultValue="2017-05-24"
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
+
+                    <SingleDatePicker
                         date={this.state.createdAt}
                         onDateChange={this.onDateChange}
                         focused={this.state.calendarFocused}
                         onFocusChange={this.onFocusChange}
                         numberOfMonths={1}
-                    />
+                    /> 
+                    {/* <TextField
+                        className={classes.input}
+                        id="date"
+                        type="date"
+                        defaultValue={new Date()}
+                        date={this.state.createdAt}
+                        onChange={this.onDateChange}
+                        focused={this.state.calendarFocused}
+                        onFocusChange={this.onFocusChange}
+                        numberOfMonths={1}
+                    />  */}
                     <TextField
                         id="standard-multiline-flexible"
                         placeholder="Note"
                         multiline
                         rowsMax="10"
                         value={this.state.multiline}
-                        className={classes.textField}
+                        className={classes.input}
                         margin="normal"
                         value={this.state.note}
                         onChange={this.onNoteChange}
                     />
-                    <Button variant="contained" color="secondary">Submit</Button>
+                    <Button type="submit" variant="contained" color="secondary">Submit</Button>
                 </form>
             </div>
         )
