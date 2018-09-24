@@ -16,6 +16,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import Drawer from "./Drawer";
 
 const styles = theme => ({
   root: {
@@ -166,9 +167,7 @@ class PrimarySearchAppBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
-              <MenuIcon />
-            </IconButton>
+            <Drawer className={classes.menuButton} color="inherit" aria-label="Open drawer" />
             <Typography className={classes.title} variant="title" color="inherit" noWrap>
               Jobba
             </Typography>

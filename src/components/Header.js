@@ -5,9 +5,8 @@ import { startLogout } from '../actions/auth';
 import AppBar from "./AppBar"
 import Tabs from "./Tabs"
 
-export const Header = ({ startLogout}) => (
+export const Header = () => (
     <header>
-        <button onClick={startLogout}>Logout</button>
         <AppBar></AppBar>
         <Tabs></Tabs>
     </header>
