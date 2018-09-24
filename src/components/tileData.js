@@ -8,8 +8,8 @@ import StarIcon from '@material-ui/icons/Star';
 import SendIcon from '@material-ui/icons/Send';
 import MailIcon from '@material-ui/icons/Mail';
 import DeleteIcon from '@material-ui/icons/Delete';
-import ReportIcon from '@material-ui/icons/Report';
 import LogoutIcon from "@material-ui/icons/PersonOutlined"
+import { firebase} from "../firebase/firebase";
 
 export const menuDrawerItems = (
   <div>
@@ -54,7 +54,7 @@ export const otherDrawerItems = (
       </ListItemIcon>
       <ListItemText primary="Trash" />
     </ListItem>
-    <ListItem button>
+    <ListItem button onClick={()=>firebase.auth().signOut()}>
       <ListItemIcon>
         <LogoutIcon />
       </ListItemIcon>
