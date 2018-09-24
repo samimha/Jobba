@@ -1,39 +1,43 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import AppRouter from './routers/AppRouter';
+import AppRouter, { history } from './routers/AppRouter';
 import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
 
 import './styles/styles.scss';
-import getVisibleExpenses from './selectors/cards';
 import { startSetCards } from './actions/cards'
-
+import { login, logout } from './actions/auth'
 import { firebase } from './firebase/firebase';
 
 const store = configureStore();
-
-const state = store.getState();
-const visibleExpenses = getVisibleExpenses(state.cards, state.filters);
-console.log(visibleExpenses);
-
 const jsx = (
     <Provider store={store}>
         <AppRouter/>
     </Provider>
 );
 
-
+let hasRendered = false;
+const renderApp = () => {
+    if (!hasRendered) {
+        ReactDOM.render(jsx, document.getElementById('app'));
+        hasRendered = true;
+    }
+};
 
 ReactDOM.render(<p>Loading...</p>, document.getElementById('app'));
 
-store.dispatch(startSetCards()).then(() => {
-    ReactDOM.render(jsx, document.getElementById('app'));
-});
-
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-        console.log('Log in.')
+        store.dispatch(login(user.uid));
+        store.dispatch(startSetCards()).then(() => {
+            renderApp();
+            if (history.location.pathname === '/') {
+                history.push('/dashboard');
+            }
+        });
     } else {
-        console.log('Log out.')
+        store.dispatch(logout());
+        renderApp();
+        history.push('/');
     }
 });
