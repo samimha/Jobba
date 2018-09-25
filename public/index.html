@@ -9,7 +9,19 @@
     <body>
 
         <div id="app"></div>
-
+        <script src="https://www.gstatic.com/firebasejs/5.5.1/firebase.js"></script>
+        <script>
+            // Initialize Firebase
+            let config = {
+                apiKey: "AIzaSyDTvuYIjGS30FGG8Ap-UoiZfSI2nXcfMlo",
+                authDomain: "jobba-app.firebaseapp.com",
+                databaseURL: "https://jobba-app.firebaseio.com",
+                projectId: "jobba-app",
+                storageBucket: "jobba-app.appspot.com",
+                messagingSenderId: "406632979273"
+            };
+            firebase.initializeApp(config);
+        </script>
         <script src="/bundle.js"></script>
     </body>
 </html>
