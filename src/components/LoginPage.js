@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import AppBar from '@material-ui/core/AppBar';
 import { Toolbar } from '@material-ui/core';
 import Divider from "@material-ui/core/Divider";
-
+import BasicAppBar from "./BasicAppBar";
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -37,13 +37,7 @@ const styles = theme => ({
 });
 export const LoginPage = ({ startLogin, classes }) => (
     <div className={classes.root}>
-        <AppBar position="static">
-            <Toolbar>
-                <Typography className={classes.title} variant="title" color="inherit" noWrap>
-                    Jobba
-                </Typography>
-            </Toolbar>
-        </AppBar>
+        <BasicAppBar/>
         <Grid container
             direction="row"
             justify="center"
