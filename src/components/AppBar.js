@@ -17,6 +17,8 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Drawer from "./Drawer";
+import { connect } from 'react-redux';
+import { startLogout } from '../actions/auth';
 
 const styles = theme => ({
   root: {
@@ -111,6 +113,12 @@ class PrimarySearchAppBar extends React.Component {
     this.setState({ mobileMoreAnchorEl: null });
   };
 
+  getLogout = () => {
+    return (
+        <MenuItem onClick={this.props.startLogout}>Log Out</MenuItem>
+    );
+  };
+
   render() {
     const { anchorEl, mobileMoreAnchorEl } = this.state;
     const { classes } = this.props;
@@ -127,7 +135,7 @@ class PrimarySearchAppBar extends React.Component {
       >
         <MenuItem onClick={this.handleClose}>Profile</MenuItem>
         <MenuItem onClick={this.handleClose}>My account</MenuItem>
-        <MenuItem onClick={this.handleClose}>Log Out</MenuItem>
+          {this.getLogout()}
       </Menu>
     );
 
@@ -220,8 +228,13 @@ class PrimarySearchAppBar extends React.Component {
   }
 }
 
+
+const mapDispatchToProps = (dispatch) => ({
+    startLogout: () => dispatch(startLogout())
+});
+
 PrimarySearchAppBar.propTypes = {
-  classes: PropTypes.object.isRequired,
+    classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(PrimarySearchAppBar);
+export default connect(undefined, mapDispatchToProps)(withStyles(styles)(PrimarySearchAppBar));
