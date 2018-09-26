@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import AppBar from '@material-ui/core/AppBar';
 import { Toolbar } from '@material-ui/core';
+import Divider from "@material-ui/core/Divider";
 
 const styles = theme => ({
     root: {
@@ -27,6 +28,12 @@ const styles = theme => ({
             display: 'block',
         },
     },
+    typo: {
+        paddingBottom: 30,
+    },
+    divider: {
+        margin: 20,
+    }
 });
 export const LoginPage = ({ startLogin, classes }) => (
     <div className={classes.root}>
@@ -43,12 +50,13 @@ export const LoginPage = ({ startLogin, classes }) => (
             alignItems="center">
             <Grid>
                 <Paper className={classes.paper} elevation={1}>
-                    <Typography variant="display2" gutterBottom >
+                    <Typography className={classes.typo} variant="display1" gutterBottom >
                         Login
                     </Typography>
                     <Typography variant="subheading" gutterBottom>
-                        Select your favourite login provider
+                        Choose your authentication option
                     </Typography>
+                    <Divider className={classes.divider}/>
                     <Button variant="contained" color="secondary" className={classes.button} onClick={startLogin}>Google login</Button>
                 </Paper>
             </Grid>
