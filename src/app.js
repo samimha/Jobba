@@ -8,6 +8,7 @@ import './styles/styles.scss';
 import { startSetCards } from './actions/cards'
 import { login, logout } from './actions/auth'
 import { firebase } from './firebase/firebase';
+import Spinner from "./components/Spinner";
 
 const store = configureStore();
 
@@ -43,7 +44,7 @@ const renderApp = () => {
     }
 };
 
-ReactDOM.render(<p>Loading...</p>, document.getElementById('app'));
+ReactDOM.render(<Spinner/>, document.getElementById('app'));
 
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
