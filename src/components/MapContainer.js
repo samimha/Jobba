@@ -1,6 +1,9 @@
 import React from "react";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
-
+const style = {
+    maxWidth: 300,
+    maxHeight: 300
+}
 export class MapContainer extends React.Component {
     constructor(props) {
         super(props)
@@ -14,18 +17,22 @@ export class MapContainer extends React.Component {
         this.mapClicked = this.mapClicked.bind(this);
     }
     componentDidMount() {
-        const coords = new Promise(function (resolve, reject){
+        const coords = new Promise(function (resolve, reject) {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (position) {
-                    resolve (position.coords);
+                    resolve(position.coords);
                 });
             }
         });
-        coords.then((response)=>this.center(response));
+        coords.then((response) => this.center(response));
     }
     mapClicked(mapProps, map, clickEvent) {
-        console.log("lat " + clickEvent.latLng.lat());
-        console.log("lng " + clickEvent.latLng.lng());
+        this.setState({
+            pos: {
+                lat: clickEvent.latLng.lat(),
+                lng: clickEvent.latLng.lng()
+            }
+        });
     }
     center(coords) {
         this.setState({
@@ -47,7 +54,12 @@ export class MapContainer extends React.Component {
                 center={{
                     lat: this.state.pos.lat,
                     lng: this.state.pos.lng
-                }}>
+                }}
+                style={style}>
+                <Marker
+                    title={'The marker`s title will appear as a tooltip.'}
+                    name={'You'}
+                    position={{ lat: this.state.pos.lat, lng: this.state.pos.lng }} />
             </Map >
         );
     }

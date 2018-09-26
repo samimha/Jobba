@@ -12,6 +12,8 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
+import { Paper, Grid } from '@material-ui/core';
+
 
 //Maps
 import MapContainer from "./MapContainer";
@@ -27,6 +29,13 @@ const styles = theme => ({
         marginRight: 10,
         width: 200,
     },
+    paper: {
+        ...theme.mixins.gutters(),
+        paddingTop: theme.spacing.unit * 2,
+        paddingBottom: theme.spacing.unit * 2,
+        maxHeight: 700,
+        maxWidth: 700,
+    }
 });
 
 class CardForm extends React.Component {
@@ -114,7 +123,7 @@ class CardForm extends React.Component {
                         focused={this.state.calendarFocused}
                         onFocusChange={this.onFocusChange}
                         numberOfMonths={1}
-                    /> 
+                    />
                     {/* <TextField
                         className={classes.input}
                         id="date"
@@ -137,8 +146,11 @@ class CardForm extends React.Component {
                         value={this.state.note}
                         onChange={this.onNoteChange}
                     />
+                    <div style={{height: 320}}>
+                        <MapContainer />
+                    </div>
                     <Button type="submit" variant="contained" color="secondary">Submit</Button>
-                    <MapContainer></MapContainer>
+
                 </form>
             </div>
         )
