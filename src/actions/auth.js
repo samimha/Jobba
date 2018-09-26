@@ -3,9 +3,9 @@ import { firebase, googleAuthProvider} from '../firebase/firebase';
 /* LOGIN ACTIONS */
 
 // Redux
-export const login = (uid) => ({
+export const login = (user) => ({
     type: 'LOGIN',
-    uid
+    user
 });
 
 // Firebase
