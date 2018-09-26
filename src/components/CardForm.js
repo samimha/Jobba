@@ -13,6 +13,9 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 
+//Maps
+import MapContainer from "./MapContainer";
+
 const styles = theme => ({
     header: {
         marginTop: 14,
@@ -135,6 +138,7 @@ class CardForm extends React.Component {
                         onChange={this.onNoteChange}
                     />
                     <Button type="submit" variant="contained" color="secondary">Submit</Button>
+                    <MapContainer></MapContainer>
                 </form>
             </div>
         )
