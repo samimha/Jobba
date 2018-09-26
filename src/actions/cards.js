@@ -12,9 +12,10 @@ export const startAddCard = (cardData = {}) =>  {
             description = '',
             note = '',
             amount = 0,
-            createdAt = 0
+            createdAt = 0,
+            userId = ''
         } = cardData;
-        const card = { description, note, amount, createdAt };
+        const card = { description, note, amount, createdAt, userId };
 
         database.ref('cards').push(card).then((ref) => {
             console.log(card);
