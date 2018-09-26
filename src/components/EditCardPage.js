@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import CardForm from './CardForm';
 import { startEditCard, startRemoveCard } from '../actions/cards';
 
-
-// EXPENSES TO CARDS !!!!
 const EditCardPage = (props) => (
     <div>
         <CardForm
