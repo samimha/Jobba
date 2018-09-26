@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-
+import { connect } from 'react-redux';
 import 'react-dates/initialize';
 //import { SingleDatePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
@@ -69,7 +69,6 @@ class CardForm extends React.Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        console.log('submitted');
 
         if (!this.state.description || !this.state.amount) {
             this.setState(() => ({ error: 'Please provide description and amount.' }));
@@ -79,9 +78,9 @@ class CardForm extends React.Component {
                 description: this.state.description,
                 amount: parseFloat(this.state.amount) * 100,
                 createdAt: this.state.createdAt.valueOf(),
-                note: this.state.note
+                note: this.state.note,
+                userId: this.props.auth.user.uid
             });
-            console.log("submitted");
         }
     };
 
@@ -142,8 +141,14 @@ class CardForm extends React.Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        auth: state.auth
+    };
+};
+
 CardForm.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(CardForm);
+export default connect(mapStateToProps)(withStyles(styles)(CardForm));
