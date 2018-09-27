@@ -1,5 +1,6 @@
 import moment from 'moment';
 
+
 // Get visible cards
 export default (cards, { text, sortBy, startDate, endDate }) => {
     return cards.filter((card) => {
@@ -16,6 +17,11 @@ export default (cards, { text, sortBy, startDate, endDate }) => {
             return a.amount < b.amount ? 1 : -1;
         }
     });
+};
 
-
+export const selectUsersCards = (cards, { user } ) => {
+    return cards.filter((card) => {
+        const cardOwnerID = card.userId;
+        return cardOwnerID === user.uid;
+    });
 };

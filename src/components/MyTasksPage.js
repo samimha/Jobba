@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ComplexCard from "./ComplexCard";
-import selectCards from '../selectors/cards';
+import { selectUsersCards } from '../selectors/cards';
 import Grid from "@material-ui/core/Grid";
 
 const CardList = (props) => (
@@ -11,8 +11,7 @@ const CardList = (props) => (
             direction="column"
             justify="center"
             alignItems="center"
-        >
-            {/* <h1>List of announcements</h1> */}
+        >{console.log(props.cards)}
             {props.cards.map((card) => {
                 return (
                     <Grid>
@@ -24,16 +23,10 @@ const CardList = (props) => (
     </div>
 );
 
-// this function is a higher order function
-/* we pass the store called 'state' as parameter and return whatever information
- we want from the store.*/
 const mapStateToProps = (state) => {
-    // the needed key-value pairs are defined in this object will be connected
-    // to the CardList props
     return {
-        cards: selectCards(state.cards, state.filters)
+        cards: selectUsersCards(state.cards, state.auth)
     };
 };
 
 export default connect(mapStateToProps)(CardList);
-
