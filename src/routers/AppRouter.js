@@ -10,6 +10,7 @@ import NotFoundPage from '../components/NotFoundPage';
 import LoginPage from "../components/LoginPage";
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
+import MyTasksPage from "../components/MyTasksPage";
 
 export const history = createHistory();
 
@@ -24,6 +25,7 @@ class AppRouter extends React.Component {
                         <PrivateRoute path="/dashboard" component={JobbaDashboardPage}/>
                         <PrivateRoute path="/create" component={AddCardPage}/>
                         <PrivateRoute path="/edit/:id" component={EditCardPage}/>
+                        <PrivateRoute path="/tasks" component={MyTasksPage}/>
                         {/*<Route path="/help" component={HelpPage}/>*/}
                         <Route component={NotFoundPage}/>
                     </Switch>

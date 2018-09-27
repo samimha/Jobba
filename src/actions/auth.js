@@ -15,6 +15,9 @@ export const startLogin = () => {
   }
 };
 
+export const getUserID = () =>  ({
+    type: 'USER_ID'
+});
 
 
 /* LOGOUT ACTIONS*/

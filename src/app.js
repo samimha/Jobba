@@ -8,6 +8,7 @@ import './styles/styles.scss';
 import { startSetCards } from './actions/cards'
 import { login, logout } from './actions/auth'
 import { firebase } from './firebase/firebase';
+import { startAddUser } from './actions/users';
 import Spinner from "./components/Spinner";
 
 const store = configureStore();
@@ -54,6 +55,9 @@ firebase.auth().onAuthStateChanged((user) => {
             if (history.location.pathname === '/') {
                 history.push('/dashboard');
             }
+        }).then(() => {
+            //add user
+            store.dispatch(startAddUser(user));
         });
     } else {
         store.dispatch(logout());

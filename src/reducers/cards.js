@@ -1,5 +1,4 @@
 // Cards (task announcement) Reducer
-
 const cardsReducerDefaultState = [];
 
 export default (state = cardsReducerDefaultState, action) => {
