@@ -13,8 +13,15 @@ import PropTypes from 'prop-types';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Grid from "@material-ui/core/Grid";
+import InputLabel from '@material-ui/core/InputLabel';
 
 const styles = theme => ({
+    card: {
+        maxWidth: 400,
+        minWidth:350,
+        margin: 10,
+    },
     input: {
         marginLeft: 10,
         marginRight: 10,
@@ -27,16 +34,42 @@ const styles = theme => ({
     selectEmpty: {
         marginTop: theme.spacing.unit * 2,
     },
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        width: 200,
+    }
 });
+
+const sortByFilters = [
+    {
+        value: "date",
+        label: "Date"
+    },
+    {
+        value: "amount",
+        label: "Amount"
+    }
+];
 
 class CardListFilters extends React.Component {
     state = {
         calendarFocused: null
     };
 
-    onDatesChange = ({ startDate, endDate }) => {
-        this.props.dispatch(setStartDate(startDate));
-        this.props.dispatch(setEndDate(endDate));
+    getSortBy = () => {
+        return this.props.filters.sortBy;
+    };
+
+    onSortChange = (sortBy) => {
+        switch(sortBy) {
+            case 'date':
+                this.props.dispatch(sortByDate());
+                break;
+            case 'amount':
+                this.props.dispatch(sortByAmount());
+                break;
+        }
     };
 
     onFocusChange = (calendarFocused) => {
@@ -46,44 +79,47 @@ class CardListFilters extends React.Component {
     render() {
         const { classes } = this.props;
         return (
-            <div>
+            <Grid
+                container
+                direction="column"
+                justify="center"
+                alignItems="center"
+            >
                 <TextField
-                    className={classes.input}
-                    value={this.props.filters.text}
+                    id="search-word"
+                    label="Search word"
+                    className={classes.textField}
+                    margin="normal"
+                    variant="filled"
                     onChange={(e) => {
                         this.props.dispatch(setTextFilter(e.target.value))
                     }}
                 />
-                <FormControl className={classes.formControl}>
-                    <Select
-                        value={this.props.filters.sortBy}
-                        onChange={(e) => {
-                            if (e.target.value === 'date') {
-                                this.props.dispatch(sortByDate());
-                            } else if (e.target.value === 'amount') {
-                                this.props.dispatch(sortByAmount());
-                            }
-                        }}
-                        displayEmpty
-                        className={classes.selectEmpty}
-                    >
-                        <MenuItem value="date">Date</MenuItem>
-                        <MenuItem value="amount">Amount</MenuItem>
-                    </Select>
-                </FormControl>
-                <DateRangePicker
-                    startDate={this.props.filters.startDate}
-                    startDateId='filter_start_date'
-                    endDate={this.props.filters.endDate}
-                    endDateId='filter_end_date'
-                    onDatesChange={this.onDatesChange}
-                    focusedInput={this.state.calendarFocused}
-                    onFocusChange={this.onFocusChange}
-                    showClearDates={true}
-                    numberOfMonths={1}
-                    isOutsideRange={() => false}
-                />
-            </div>
+                <TextField
+                    id="filled-select-sort-by"
+                    select
+                    label="Sort By"
+                    className={classes.textField}
+                    value={this.getSortBy()}
+                    onChange={(e) => {this.onSortChange(e.target.value)}}
+                    SelectProps={{
+                        MenuProps: {
+                            className: classes.menu,
+                        },
+                    }}
+                    margin="normal"
+                    variant="filled"
+                >
+                    {sortByFilters.map(option => (
+                        <MenuItem key={option.value} value={option.value}>
+                            {option.label}
+                        </MenuItem>
+                    ))}
+                </TextField>
+            </Grid>
+
+
+
         );
     }
 }
@@ -93,6 +129,8 @@ const mapStateToProps = (state) => {
         filters: state.filters
     };
 };
+
+
 
 CardListFilters.propTypes = {
     classes: PropTypes.object.isRequired,
