@@ -4,8 +4,8 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import {addLocation } from "../actions/location";
 const style = {
-    maxWidth: 300,
-    maxHeight: 300
+    width: 350,
+    maxHeight: 500
 }
 export class MapContainer extends React.Component {
     constructor(props) {

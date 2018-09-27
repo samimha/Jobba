@@ -11,7 +11,6 @@ export class CardMap extends React.Component {
     }
     render() {
         return (
-            <div>
                 <Map
                     google={this.props.google}
                     style={style}
@@ -27,7 +26,6 @@ export class CardMap extends React.Component {
                         name={'Location'}
                         position={{ lat: this.props.location.lat, lng: this.props.location.lng }} />
                 </Map>
-            </div>
         )
     }
 }
