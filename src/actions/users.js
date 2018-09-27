@@ -10,7 +10,9 @@ export const startAddUser = (userData = {}) => {
     return (dispatch) => {
         const {
             uid = '',
-            displayName = ''
+            displayName = '',
+            email = '',
+            photoURL = ''
         } = userData;
         
         //const user = { uid, displayName };
@@ -19,7 +21,7 @@ export const startAddUser = (userData = {}) => {
         var userRef = firebase.database().ref('users/'+uid);
         userRef.transaction(function (currentData) {
             if (currentData === null) {
-                return { name: displayName };
+                return { name: displayName, email: email, photoURL: photoURL };
             } else {
                 console.log('User already exists.');
                 return; // Abort the transaction.
