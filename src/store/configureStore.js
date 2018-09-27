@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import cardsReducer from '../reducers/cards';
 import filtersReducer from '../reducers/filters';
 import authReducer from '../reducers/auth';
-
+import usersReducer from '../reducers/users';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -13,7 +13,8 @@ export default () => {
         combineReducers({
             cards: cardsReducer,
             filters: filtersReducer,
-            auth: authReducer
+            auth: authReducer,
+            users: usersReducer
         }),
         composeEnhancers(applyMiddleware(thunk))
     );
