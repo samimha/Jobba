@@ -1,6 +1,16 @@
 {
   "rules": {
-    ".read": true,
-    ".write": true
+    "cards": {
+      ".read": "auth != null",
+      "$card_ui": {
+        ".write": "!data.exists() || !newData.exists() || data.child('uid').val() === auth.uid"
+      }
+    },
+    "users": {
+      ".read": "auth != null",
+      "$user": {
+        ".write": "$user === auth.uid"
+      }
+    }
   }
 }
