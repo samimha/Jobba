@@ -112,7 +112,7 @@ class RecipeReviewCard extends React.Component {
                         <Typography paragraph variant="body2">
                             {this.props.note}
                         </Typography>
-                        <div style={{ height: 300}}>
+                        <div style={{ height: 200}}>
                             <CardMap location={this.props.location}/>
                         </div>
                     </CardContent>
