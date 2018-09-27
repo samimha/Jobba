@@ -91,7 +91,8 @@ class CardForm extends React.Component {
                 amount: parseFloat(this.state.amount) * 100,
                 createdAt: this.state.createdAt.valueOf(),
                 note: this.state.note,
-                userId: this.props.auth.user.uid
+                userId: this.props.auth.user.uid,
+                location: this.props.location.userLocation
             });
         }
     };
@@ -159,7 +160,8 @@ class CardForm extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        auth: state.auth
+        auth: state.auth,
+        location: state.location
     };
 };
 

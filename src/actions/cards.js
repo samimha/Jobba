@@ -7,16 +7,20 @@ export const addCard = (card) => ({
     card
 });
 
-export const startAddCard = (cardData = {}) =>  {
+export const startAddCard = (cardData = {}) => {
     return (dispatch) => {
-        const  {
+        const {
             description = '',
             note = '',
             amount = 0,
             createdAt = 0,
-            userId = ''
+            userId = '',
+            location = {
+                lat: 0,
+                lng: 0
+            }
         } = cardData;
-        const card = { description, note, amount, createdAt, userId };
+        const card = { description, note, amount, createdAt, userId, location };
 
         database.ref('cards').push(card).then((ref) => {
             console.log(card);
@@ -32,7 +36,7 @@ export const startAddCard = (cardData = {}) =>  {
 
 
 // REMOVE_EXPENSE
-export const removeCard = (id  = {}) => ({
+export const removeCard = (id = {}) => ({
     type: 'REMOVE_CARD',
     id
 });
@@ -56,7 +60,7 @@ export const editCard = (id, updates) => ({
 
 export const startEditCard = (id, updates) => {
     return (dispatch) => {
-        return database.ref('cards/' + id).update({...updates}).then(() => {
+        return database.ref('cards/' + id).update({ ...updates }).then(() => {
             dispatch(editCard({
                 id: id,
                 updates
@@ -89,8 +93,8 @@ export const startSetCards = () => {
 
                 dispatch(setCards(cards));
             }).catch((e) => {
-            console.log('Error ocurred while fetching cards for the first time.', e);
-        });
+                console.log('Error ocurred while fetching cards for the first time.', e);
+            });
 
     }
 };
