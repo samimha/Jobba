@@ -12,6 +12,11 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
+import { Paper, Grid } from '@material-ui/core';
+
+
+//Maps
+import MapContainer from "./MapContainer";
 
 const styles = theme => ({
     header: {
@@ -24,6 +29,13 @@ const styles = theme => ({
         marginRight: 10,
         width: 200,
     },
+    paper: {
+        ...theme.mixins.gutters(),
+        paddingTop: theme.spacing.unit * 2,
+        paddingBottom: theme.spacing.unit * 2,
+        maxHeight: 700,
+        maxWidth: 700,
+    }
 });
 
 class CardForm extends React.Component {
@@ -79,7 +91,8 @@ class CardForm extends React.Component {
                 amount: parseFloat(this.state.amount) * 100,
                 createdAt: this.state.createdAt.valueOf(),
                 note: this.state.note,
-                userId: this.props.auth.user.uid
+                userId: this.props.auth.user.uid,
+                location: this.props.location.userLocation
             });
         }
     };
@@ -111,7 +124,7 @@ class CardForm extends React.Component {
                         focused={this.state.calendarFocused}
                         onFocusChange={this.onFocusChange}
                         numberOfMonths={1}
-                    /> 
+                    />
                     {/* <TextField
                         className={classes.input}
                         id="date"
@@ -134,7 +147,11 @@ class CardForm extends React.Component {
                         value={this.state.note}
                         onChange={this.onNoteChange}
                     />
+                    <div style={{height: 320}}>
+                        <MapContainer />
+                    </div>
                     <Button type="submit" variant="contained" color="secondary">Submit</Button>
+
                 </form>
             </div>
         )
@@ -143,7 +160,8 @@ class CardForm extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        auth: state.auth
+        auth: state.auth,
+        location: state.location
     };
 };
 
