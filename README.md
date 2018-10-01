@@ -27,7 +27,7 @@ adding something smaller than a new feature: `add-what-will-be-added`<br>
 
 **Example:** `git checkout -b feature-user-authentication`
 
-### Deleting branches
+### Deleting branches:
 
 remote: `git push --delete origin <branch_name>`<br>
 local: `git branch -d <branch_name>`
@@ -36,3 +36,15 @@ local: `git branch -d <branch_name>`
 
 install dependecies: `npm install`<br>
 deploy local development server: `npm run dev-server`
+
+### Production deployment:
+
+install dependecies (if needed): `npm install`<br>
+edit `\node_modules\google-maps-react\dist\index.js` mapStyles > container to <br>
+`container: {
+      position: 'absolute',
+      minWidth: '200',
+      minHeight: '200'
+    },`<br>
+build: `npm run build:prod`<br>
+deploy: `firebase deploy`
