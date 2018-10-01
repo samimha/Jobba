@@ -20,8 +20,7 @@ import CardMap from "./CardMap";
 
 const styles = theme => ({
     card: {
-        maxWidth: 400,
-        minWidth: 250,
+        width: 300,
         margin: 10,
     },
     media: {
@@ -86,7 +85,7 @@ class RecipeReviewCard extends React.Component {
                 /> */}
                 <CardContent>
                     <Typography component="p">
-                        Palkkio:{this.props.amount}
+                        Reward: {this.props.amount/100}€
                     </Typography>
                 </CardContent>
                 <CardActions className={classes.actions} disableActionSpacing>

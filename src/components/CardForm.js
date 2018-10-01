@@ -106,14 +106,14 @@ class CardForm extends React.Component {
                 <form action="" onSubmit={this.onSubmit}>
                     <TextField
                         className={classes.input}
-                        placeholder="Description"
+                        placeholder="Title"
                         autoFocus
                         value={this.state.description}
                         onChange={this.onDescriptionChange}
                     />
                     <TextField
                         className={classes.input}
-                        placeholder="Amount"
+                        placeholder="Reward"
                         value={this.state.amount}
                         onChange={this.onAmountChange}
                     />
@@ -138,7 +138,7 @@ class CardForm extends React.Component {
                     />  */}
                     <TextField
                         id="standard-multiline-flexible"
-                        placeholder="Note"
+                        placeholder="Description"
                         multiline
                         rowsMax="10"
                         value={this.state.multiline}
