@@ -132,39 +132,13 @@ class CardForm extends React.Component {
                             value={this.state.description}
                             onChange={this.onDescriptionChange}
                         />
-                        <Grid
-                            container
-                            direction="row"
-                            justify="center"
-                            alignItems="center"
-                        >
-                            <TextField
-                                className={classes.rewardinput}
-                                placeholder="Reward (€)"
-                                value={this.state.amount}
-                                onChange={this.onAmountChange}
-                            />
+                        <TextField
+                            className={classes.input}
+                            placeholder="Reward (€)"
+                            value={this.state.amount}
+                            onChange={this.onAmountChange}
+                        />
 
-                            <Typography variant="caption">Help needed earliest:  </Typography>
-                            <SingleDatePicker
-                                date={this.state.createdAt}
-                                onDateChange={this.onDateChange}
-                                focused={this.state.calendarFocused}
-                                onFocusChange={this.onFocusChange}
-                                numberOfMonths={1}
-                            />
-                        </Grid>
-                        {/* <TextField
-                         className={classes.input}
-                         id="date"
-                         type="date"
-                         defaultValue={new Date()}
-                         date={this.state.createdAt}
-                         onChange={this.onDateChange}
-                         focused={this.state.calendarFocused}
-                         onFocusChange={this.onFocusChange}
-                         numberOfMonths={1}
-                         />  */}
                         <TextField
                             id="standard-multiline-flexible"
                             placeholder="Description (multiline)"
@@ -177,16 +151,31 @@ class CardForm extends React.Component {
                             onChange={this.onNoteChange}
                         />
                     </Grid>
-                    <div style={{height: 200}}>
+                    <div style={{ height: 200 }}>
                         <MapContainer />
                     </div>
+        <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="center"
+        >
+            <Typography variant="title">Help needed earliest:  </Typography>
+            <SingleDatePicker
+                date={this.state.createdAt}
+                onDateChange={this.onDateChange}
+                focused={this.state.calendarFocused}
+                onFocusChange={this.onFocusChange}
+                numberOfMonths={1}
+            />
+        </Grid>
                     <Grid
                         container
                         direction="column"
                         justify="center"
                         alignItems="center"
                     >
-                    <Button className={classes.submitButton} type="submit" variant="contained" color="secondary">Submit</Button>
+                        <Button className={classes.submitButton} type="submit" variant="contained" color="secondary">Submit</Button>
                     </Grid>
                 </form>
 
