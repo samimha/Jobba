@@ -3,26 +3,41 @@ import { connect } from 'react-redux';
 import ComplexCard from "./ComplexCard";
 import selectCards from '../selectors/cards';
 import Grid from "@material-ui/core/Grid";
+import { startSetCards } from '../actions/cards';
+import { bindActionCreators } from "redux";
 
-const CardList = (props) => (
-    <div>
-        <Grid
-            container
-            direction="column"
-            justify="center"
-            alignItems="center"
-        >
-            {/* <h1>List of announcements</h1> */}
-            {props.cards.map((card) => {
-                return (
-                    <Grid>
-                        <ComplexCard key={card.id} {...card} />
-                    </Grid>
-                );
-            })}
-        </Grid>
-    </div>
-);
+class CardList extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = { cards: this.props.cards };
+    }
+
+    componentWillMount() {
+        this.props.startSetCards();
+    }
+    render() {
+        return (
+            <div>
+                <Grid
+                    container
+                    direction="column"
+                    justify="center"
+                    alignItems="center"
+                >
+                    {/* <h1>List of announcements</h1> */}
+                    {this.props.cards.map((card) => {
+                        return (
+                            <Grid>
+                                <ComplexCard key={card.id} {...card} />
+                            </Grid>
+                        );
+                    })}
+                </Grid>
+            </div>
+        )
+    }
+
+}
 
 // this function is a higher order function
 /* we pass the store called 'state' as parameter and return whatever information
@@ -34,6 +49,11 @@ const mapStateToProps = (state) => {
         cards: selectCards(state.cards, state.filters)
     };
 };
+function matchDispatchToProps(dispatch) {
+    return bindActionCreators({
+        startSetCards: startSetCards
+    }, dispatch)
+}
 
-export default connect(mapStateToProps)(CardList);
+export default connect(mapStateToProps, matchDispatchToProps)(CardList);
 
