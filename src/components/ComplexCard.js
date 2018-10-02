@@ -11,11 +11,17 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import red from '@material-ui/core/colors/red';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
+import MessageIcon from '@material-ui/icons/Message';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CardMap from "./CardMap";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = theme => ({
     card: {
@@ -51,21 +57,39 @@ class RecipeReviewCard extends React.Component {
     constructor(props) {
         super(props)
     }
-    state = { expanded: false };
+    state = {
+        open: false,
+        expanded: false
+    };
 
     handleExpandClick = () => {
         this.setState(state => ({ expanded: !state.expanded }));
     };
 
+    handleClickOpen = () => {
+        this.setState({ open: true });
+    };
+
+    handleClose = () => {
+        this.setState({ open: false });
+    };
+    handleEmail = () => {
+        window.location.href = "mailto:"+this.props.userEmail+"?Subject=Offering help to " + this.props.description;
+        this.setState({ open: false });
+    };
+    handleCall = () => {
+        window.location.href = "tel:"+this.props.userPhone;
+        this.setState({ open: false });
+    };
+
     render() {
-        const { classes } = this.props;
+        const { classes, fullScreen } = this.props;
         const date = new Date(this.props.createdAt);
-        console.log(date.toString());
         return (
             <Card className={classes.card}>
                 <CardHeader
                     avatar={
-                        <Avatar src={this.props.userImg} className={classes.avatar}/>
+                        <Avatar src={this.props.userImg} className={classes.avatar} />
                     }
                     action={
                         <IconButton>
@@ -82,16 +106,44 @@ class RecipeReviewCard extends React.Component {
                 </CardContent>
                 <CardContent>
                     <Typography component="p">
-                        Reward: {this.props.amount/100}€
+                        Reward: {this.props.amount / 100}€
                     </Typography>
                 </CardContent>
                 <CardActions className={classes.actions} disableActionSpacing>
-                    <IconButton aria-label="Add to favorites">
-                        <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="Share">
-                        <ShareIcon />
-                    </IconButton>
+                    <Tooltip title="Contact user" placement="right">
+                        <IconButton aria-label="Add to favorites" onClick={this.handleClickOpen}>
+                            <MessageIcon />
+                        </IconButton>
+                    </Tooltip>
+                    <Dialog
+                        fullScreen={fullScreen}
+                        open={this.state.open}
+                        onClose={this.handleClose}
+                        aria-labelledby="responsive-dialog-title"
+                    >
+                        <DialogTitle id="responsive-dialog-title">{"Contact information"}</DialogTitle>
+                        <DialogContent>
+                            <CardHeader avatar={
+                                <Avatar src={this.props.userImg} className={classes.avatar} />
+                            }
+                                title={this.props.userName}
+                            ></CardHeader>
+                            <DialogContentText>
+                                {this.props.userPhone}
+                            </DialogContentText>
+                            <DialogContentText>
+                                {this.props.userEmail}
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={this.handleCall} color="primary">
+                                Call
+                            </Button>
+                            <Button onClick={this.handleEmail} color="primary" autoFocus>
+                                Email
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
                     <IconButton
                         className={classnames(classes.expand, {
                             [classes.expandOpen]: this.state.expanded,
@@ -108,8 +160,8 @@ class RecipeReviewCard extends React.Component {
                         <Typography paragraph variant="body2">
                             {this.props.note}
                         </Typography>
-                        <div style={{ height: 200}}>
-                            <CardMap location={this.props.location}/>
+                        <div style={{ height: 200 }}>
+                            <CardMap location={this.props.location} />
                         </div>
                     </CardContent>
                 </Collapse>
