@@ -9,7 +9,6 @@ export const addCard = (card) => ({
 export const startAddCard = (cardData = {}) => {
     return (dispatch) => {
         const {
-            id = '',
             description = '',
             note = '',
             amount = 0,
@@ -22,7 +21,7 @@ export const startAddCard = (cardData = {}) => {
                 lng: 0
             }
         } = cardData;
-        const card = { id, description, note, amount, createdAt, userId, userName, userImg, location };
+        const card = { description, note, amount, createdAt, userId, userName, userImg, location };
 
         database.ref('cards').push(card).then((ref) => {
             console.log(card);
