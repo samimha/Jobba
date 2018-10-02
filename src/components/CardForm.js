@@ -92,6 +92,8 @@ class CardForm extends React.Component {
                 createdAt: this.state.createdAt.valueOf(),
                 note: this.state.note,
                 userId: this.props.auth.user.uid,
+                userName: this.props.auth.user.displayName,
+                userImg: this.props.auth.user.photoURL,
                 location: this.props.location.userLocation
             });
         }
