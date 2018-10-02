@@ -14,12 +14,14 @@ export const startAddCard = (cardData = {}) => {
             amount = 0,
             createdAt = 0,
             userId = '',
+            userName = '',
+            userImg = '',
             location = {
                 lat: 0,
                 lng: 0
             }
         } = cardData;
-        const card = { description, note, amount, createdAt, userId, location };
+        const card = { description, note, amount, createdAt, userId, userName, userImg, location };
 
         database.ref('cards').push(card).then((ref) => {
             console.log(card);

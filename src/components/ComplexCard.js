@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
@@ -66,23 +65,21 @@ class RecipeReviewCard extends React.Component {
             <Card className={classes.card}>
                 <CardHeader
                     avatar={
-                        <Avatar aria-label="Recipe" className={classes.avatar}>
-                            R
-                        </Avatar>
+                        <Avatar src={this.props.userImg} className={classes.avatar}/>
                     }
                     action={
                         <IconButton>
                             <MoreVertIcon />
                         </IconButton>
                     }
-                    title={this.props.description}
+                    title={this.props.userName}
                     subheader={date.toLocaleDateString()}
                 />
-                {/* <CardMedia
-                    className={classes.media}
-                    image="/static/images/cards/paella.jpg"
-                    title="Contemplative Reptile"
-                /> */}
+                <CardContent>
+                    <Typography>
+                        {this.props.description}
+                    </Typography>
+                </CardContent>
                 <CardContent>
                     <Typography component="p">
                         Reward: {this.props.amount/100}€
