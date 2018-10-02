@@ -55,6 +55,7 @@ class CardForm extends React.Component {
         super(props);
 
         this.state = {
+            editing: !!props.editing,
             description: props.card ? props.card.description : '',
             note: props.card ? props.card.note : '',
             amount: props.card ? (props.card.amount / 100).toString() : '',
@@ -115,7 +116,7 @@ class CardForm extends React.Component {
         const { classes } = this.props;
         return (
             <div>
-                <Typography variant="display2" gutterBottom className={classes.header}>Add task announcement</Typography>
+                {this.props.editing ? <Typography variant="display2" gutterBottom className={classes.header}>Edit task announcement</Typography>: <Typography variant="display2" gutterBottom className={classes.header}>Add task announcement</Typography>}
                 {this.state.error && <p>{this.state.error}</p>}
 
                 <form action="" onSubmit={this.onSubmit}>
@@ -175,7 +176,7 @@ class CardForm extends React.Component {
                         justify="center"
                         alignItems="center"
                     >
-                        <Button className={classes.submitButton} type="submit" variant="contained" color="secondary">Submit</Button>
+                        <Button className={classes.submitButton} type="submit" variant="contained" color="secondary">{this.props.editing ? 'Update' : 'Submit'}</Button>
                     </Grid>
                 </form>
 

@@ -43,7 +43,7 @@ class EditCardPage extends React.Component {
                             card={this.props.card}
                             onSubmit={(card) => {
                                 this.props.dispatch(startEditCard(this.props.card.id, card));
-                                this.props.history.push('/'); // redirects to dashboard/feed
+                                this.props.history.push('/tasks'); // redirects to dashboard/feed
                             }}
                         />
                     </Paper>
