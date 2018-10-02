@@ -94,6 +94,8 @@ class CardForm extends React.Component {
                 userId: this.props.auth.user.uid,
                 userName: this.props.auth.user.displayName,
                 userImg: this.props.auth.user.photoURL,
+                userEmail: this.props.auth.user.email,
+                userPhone: this.props.auth.user.phoneNumber,
                 location: this.props.location.userLocation
             });
         }
