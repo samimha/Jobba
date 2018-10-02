@@ -41,10 +41,12 @@ deploy local development server: `npm run dev-server`
 
 install dependecies (if needed): `npm install`<br>
 edit `\node_modules\google-maps-react\dist\index.js` mapStyles > container to <br>
-`container: {
+```javascript
+container: {
       position: 'absolute',
-      minWidth: '200',
-      minHeight: '200'
-    },`<br>
+      minWidth: 200,
+      minHeight: 200
+    },
+```
 build: `npm run build:prod`<br>
 deploy: `firebase deploy`

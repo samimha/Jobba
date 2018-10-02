@@ -4,5 +4,11 @@ node_modules/
 #webstorm editor
 .idea/
 
-#bundle
+#public
 bundle.js
+bundle.js.map
+public/styles.css
+public/styles.css.map
+
+#firebase deploy
+.firebase/
