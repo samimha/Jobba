@@ -12,7 +12,7 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
-import { Paper, Grid } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 
 
 //Maps
@@ -24,18 +24,30 @@ const styles = theme => ({
         marginLeft: 10,
         marginRight: 10,
     },
+    submitButton: {
+        marginTop: 14,
+        marginBottom: 14
+    },
     input: {
         marginLeft: 10,
         marginRight: 10,
-        width: 200,
+        width: '100%',
+        marginBottom: 5
+    },
+    descInput: {
+        marginLeft: 10,
+        marginRight: 10,
+        width: '100%',
+        marginBottom: 14
     },
     paper: {
         ...theme.mixins.gutters(),
         paddingTop: theme.spacing.unit * 2,
         paddingBottom: theme.spacing.unit * 2,
         maxHeight: 700,
-        maxWidth: 700,
-    }
+        maxWidth: 600,
+    },
+
 });
 
 class CardForm extends React.Component {
@@ -107,56 +119,68 @@ class CardForm extends React.Component {
             <div>
                 <Typography variant="display2" gutterBottom className={classes.header}>Add task announcement</Typography>
                 {this.state.error && <p>{this.state.error}</p>}
-                <form action="" onSubmit={this.onSubmit}>
-                    <TextField
-                        className={classes.input}
-                        placeholder="Title"
-                        autoFocus
-                        value={this.state.description}
-                        onChange={this.onDescriptionChange}
-                    />
-                    <TextField
-                        className={classes.input}
-                        placeholder="Reward"
-                        value={this.state.amount}
-                        onChange={this.onAmountChange}
-                    />
 
-                    <SingleDatePicker
-                        date={this.state.createdAt}
-                        onDateChange={this.onDateChange}
-                        focused={this.state.calendarFocused}
-                        onFocusChange={this.onFocusChange}
-                        numberOfMonths={1}
-                    />
-                    {/* <TextField
-                        className={classes.input}
-                        id="date"
-                        type="date"
-                        defaultValue={new Date()}
-                        date={this.state.createdAt}
-                        onChange={this.onDateChange}
-                        focused={this.state.calendarFocused}
-                        onFocusChange={this.onFocusChange}
-                        numberOfMonths={1}
-                    />  */}
-                    <TextField
-                        id="standard-multiline-flexible"
-                        placeholder="Description"
-                        multiline
-                        rowsMax="10"
-                        value={this.state.multiline}
-                        className={classes.input}
-                        margin="normal"
-                        value={this.state.note}
-                        onChange={this.onNoteChange}
-                    />
-                    <div style={{height: 320}}>
+                <form action="" onSubmit={this.onSubmit}>
+                    <Grid
+                        container
+                        direction="column"
+                        justify="center"
+                        alignItems="center"
+                    >
+                        <TextField
+                            className={classes.input}
+                            placeholder="Title"
+                            autoFocus
+                            value={this.state.description}
+                            onChange={this.onDescriptionChange}
+                        />
+                        <TextField
+                            className={classes.input}
+                            placeholder="Reward (€)"
+                            value={this.state.amount}
+                            onChange={this.onAmountChange}
+                        />
+
+                        <TextField
+                            id="standard-multiline-flexible"
+                            placeholder="Description (multiline)"
+                            multiline
+                            rowsMax="4"
+                            value={this.state.multiline}
+                            className={classes.descInput}
+                            margin="normal"
+                            value={this.state.note}
+                            onChange={this.onNoteChange}
+                        />
+                    </Grid>
+                    <div style={{ height: 200 }}>
                         <MapContainer />
                     </div>
-                    <Button type="submit" variant="contained" color="secondary">Submit</Button>
-
+        <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="center"
+        >
+            <Typography variant="title">Help needed earliest:  </Typography>
+            <SingleDatePicker
+                date={this.state.createdAt}
+                onDateChange={this.onDateChange}
+                focused={this.state.calendarFocused}
+                onFocusChange={this.onFocusChange}
+                numberOfMonths={1}
+            />
+        </Grid>
+                    <Grid
+                        container
+                        direction="column"
+                        justify="center"
+                        alignItems="center"
+                    >
+                        <Button className={classes.submitButton} type="submit" variant="contained" color="secondary">Submit</Button>
+                    </Grid>
                 </form>
+
             </div>
         )
     }
