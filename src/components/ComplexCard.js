@@ -16,6 +16,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CardMap from "./CardMap";
+import { Link } from 'react-router-dom';
 
 const styles = theme => ({
     card: {
@@ -51,10 +52,18 @@ class RecipeReviewCard extends React.Component {
     constructor(props) {
         super(props)
     }
-    state = { expanded: false };
+    state = {
+        editable: !!this.props.editable,
+        expanded: false,
+        anchorEl: null
+    };
 
     handleExpandClick = () => {
         this.setState(state => ({ expanded: !state.expanded }));
+    };
+
+    handleClick = event => {
+        this.setState({ anchorEl: event.currentTarget });
     };
 
     render() {
@@ -68,7 +77,12 @@ class RecipeReviewCard extends React.Component {
                         <Avatar src={this.props.userImg} className={classes.avatar}/>
                     }
                     action={
-                        <IconButton>
+                        <IconButton
+                            aria-label="More"
+                            aria-owns={open ? 'long-menu' : null}
+                            aria-haspopup="true"
+                            onClick={this.handleClick}
+                        >
                             <MoreVertIcon />
                         </IconButton>
                     }
@@ -89,9 +103,7 @@ class RecipeReviewCard extends React.Component {
                     <IconButton aria-label="Add to favorites">
                         <FavoriteIcon />
                     </IconButton>
-                    <IconButton aria-label="Share">
-                        <ShareIcon />
-                    </IconButton>
+                    {this.state.editable ? (<Link to={`/edit/${this.props.id}`}><IconButton aria-label="Edit"><ShareIcon /></IconButton></Link>) : null}
                     <IconButton
                         className={classnames(classes.expand, {
                             [classes.expandOpen]: this.state.expanded,

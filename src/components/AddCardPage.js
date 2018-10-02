@@ -31,16 +31,18 @@ export class AddCardPage extends React.Component {
         const { classes } = this.props;
 
         return(
-            <Grid
-                container
-                direction="column"
-                justify="center"
-                alignItems="center"
-            >
-                <Paper className={classes.paper}>
-                    <CardForm onSubmit={this.onSubmit}/>
-                </Paper>
-            </Grid>
+            <div>
+                <Grid
+                    container
+                    direction="column"
+                    justify="center"
+                    alignItems="center"
+                >
+                    <Paper className={classes.paper}>
+                        <CardForm onSubmit={this.onSubmit}/>
+                    </Paper>
+                </Grid>
+            </div>
         );
     }
 };
