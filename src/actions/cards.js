@@ -80,22 +80,22 @@ export const setCards = (cards) => ({
 
 export const startSetCards = () => {
     return (dispatch) => {
-        return database.ref('cards')
-            .once('value')
-            .then((snapshot) => {
-                const cards = [];
-
-                snapshot.forEach((childSnapshot) => {
-                    cards.push({
-                        id: childSnapshot.key,
-                        ...childSnapshot.val()
+        const set = new Promise(function (resolve) {
+            let cards = [];
+            database.ref('cards')
+                .on('value', snapshot => {
+                    let cards = [];
+                    snapshot.forEach((post) => {
+                        cards.push({
+                            id: post.key,
+                            ...post.val()
+                        });
                     });
-                });
+                    dispatch(setCards(cards))
+                    resolve(cards);
 
-                dispatch(setCards(cards));
-            }).catch((e) => {
-                console.log('Error ocurred while fetching cards for the first time.', e);
-            });
-
+                })
+        })
+        return set;
     }
 };

@@ -49,16 +49,15 @@ ReactDOM.render(<Spinner/>, document.getElementById('app'));
 
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-        store.dispatch(login(user));
-        store.dispatch(startSetCards()).then(() => {
+        store.dispatch(login(user))//.then(() => {
             renderApp();
             if (history.location.pathname === '/') {
                 history.push('/dashboard');
             }
-        }).then(() => {
+        //}).then(() => {
             //add user
             store.dispatch(startAddUser(user));
-        });
+       // });
     } else {
         store.dispatch(logout());
         renderApp();
