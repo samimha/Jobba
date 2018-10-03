@@ -12,7 +12,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import red from '@material-ui/core/colors/red';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
+import EditIcon from '@material-ui/icons/Edit';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CardMap from "./CardMap";
@@ -70,6 +70,7 @@ class RecipeReviewCard extends React.Component {
         const { classes } = this.props;
         const date = new Date(this.props.createdAt);
         console.log(date.toString());
+
         return (
             <Card className={classes.card}>
                 <CardHeader
@@ -103,7 +104,7 @@ class RecipeReviewCard extends React.Component {
                     <IconButton aria-label="Add to favorites">
                         <FavoriteIcon />
                     </IconButton>
-                    {this.state.editable ? (<Link to={`/edit/${this.props.id}`}><IconButton aria-label="Edit"><ShareIcon /></IconButton></Link>) : null}
+                    {this.state.editable ? (<Link to={`/edit/${this.props.id}`}><IconButton aria-label="Edit"><EditIcon /></IconButton></Link>) : null}
                     <IconButton
                         className={classnames(classes.expand, {
                             [classes.expandOpen]: this.state.expanded,
