@@ -58,13 +58,13 @@ class CardForm extends React.Component {
             editing: !!props.editing,
             description: props.card ? props.card.description : '',
             note: props.card ? props.card.note : '',
+            phoneNumber: props.phoneNumber ? props.card.phoneNumber : '',
             amount: props.card ? (props.card.amount / 100).toString() : '',
             createdAt: props.card ? moment(props.card.createdAt) : moment(),
             calendarFocused: false,
             error: ''
         };
     }
-
     onDescriptionChange = (e) => {
         const description = e.target.value;
         this.setState(() => ({ description }));
@@ -73,6 +73,10 @@ class CardForm extends React.Component {
     onNoteChange = (e) => {
         const note = e.target.value;
         this.setState(() => ({ note }));
+    };
+    onPhoneNumberChange = (e) => {
+        const phoneNumber = e.target.value;
+        this.setState(() => ({ phoneNumber }));
     };
 
     onAmountChange = (e) => {
@@ -107,6 +111,8 @@ class CardForm extends React.Component {
                 userId: this.props.auth.user.uid,
                 userName: this.props.auth.user.displayName,
                 userImg: this.props.auth.user.photoURL,
+                userEmail: this.props.auth.user.email,
+                userPhone: this.state.phoneNumber,
                 location: this.props.location.userLocation
             });
         }
@@ -133,6 +139,12 @@ class CardForm extends React.Component {
                             autoFocus
                             value={this.state.description}
                             onChange={this.onDescriptionChange}
+                        />
+                        <TextField
+                            className={classes.input}
+                            placeholder="Phone number"
+                            value={this.state.phoneNumber}
+                            onChange={this.onPhoneNumberChange}
                         />
                         <TextField
                             className={classes.input}
