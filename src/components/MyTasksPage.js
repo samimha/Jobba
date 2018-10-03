@@ -15,7 +15,7 @@ const CardList = (props) => (
             {props.cards.map((card) => {
                 return (
                     <Grid>
-                        <ComplexCard key={card.id} {...card} />
+                        <ComplexCard editable={true} key={card.id} {...card} />
                     </Grid>
                 );
             })}

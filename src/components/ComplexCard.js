@@ -15,6 +15,7 @@ import MessageIcon from '@material-ui/icons/Message';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CardMap from "./CardMap";
+import { Link } from 'react-router-dom';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -59,11 +60,17 @@ class RecipeReviewCard extends React.Component {
     }
     state = {
         open: false,
-        expanded: false
+        editable: !!this.props.editable,
+        expanded: false,
+        anchorEl: null
     };
 
     handleExpandClick = () => {
         this.setState(state => ({ expanded: !state.expanded }));
+    };
+
+    handleClick = event => {
+        this.setState({ anchorEl: event.currentTarget });
     };
 
     handleClickOpen = () => {
@@ -92,7 +99,12 @@ class RecipeReviewCard extends React.Component {
                         <Avatar src={this.props.userImg} className={classes.avatar} />
                     }
                     action={
-                        <IconButton>
+                        <IconButton
+                            aria-label="More"
+                            aria-owns={open ? 'long-menu' : null}
+                            aria-haspopup="true"
+                            onClick={this.handleClick}
+                        >
                             <MoreVertIcon />
                         </IconButton>
                     }
@@ -144,6 +156,10 @@ class RecipeReviewCard extends React.Component {
                             </Button>
                         </DialogActions>
                     </Dialog>
+                    <IconButton aria-label="Add to favorites">
+                        <FavoriteIcon />
+                    </IconButton>
+                    {this.state.editable ? (<Link to={`/edit/${this.props.id}`}><IconButton aria-label="Edit"><ShareIcon /></IconButton></Link>) : null}
                     <IconButton
                         className={classnames(classes.expand, {
                             [classes.expandOpen]: this.state.expanded,

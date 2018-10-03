@@ -55,6 +55,7 @@ class CardForm extends React.Component {
         super(props);
 
         this.state = {
+            editing: !!props.editing,
             description: props.card ? props.card.description : '',
             note: props.card ? props.card.note : '',
             phoneNumber: props.phoneNumber ? props.card.phoneNumber : '',
@@ -115,13 +116,14 @@ class CardForm extends React.Component {
                 location: this.props.location.userLocation
             });
         }
+        window.location.reload();
     };
 
     render() {
         const { classes } = this.props;
         return (
             <div>
-                <Typography variant="display2" gutterBottom className={classes.header}>Add task announcement</Typography>
+                {this.props.editing ? <Typography variant="display2" gutterBottom className={classes.header}>Edit task announcement</Typography> : <Typography variant="display2" gutterBottom className={classes.header}>Add task announcement</Typography>}
                 {this.state.error && <p>{this.state.error}</p>}
 
                 <form action="" onSubmit={this.onSubmit}>
@@ -166,28 +168,28 @@ class CardForm extends React.Component {
                     <div style={{ height: 200 }}>
                         <MapContainer />
                     </div>
-        <Grid
-            container
-            direction="row"
-            justify="space-between"
-            alignItems="center"
-        >
-            <Typography variant="title">Help needed earliest:  </Typography>
-            <SingleDatePicker
-                date={this.state.createdAt}
-                onDateChange={this.onDateChange}
-                focused={this.state.calendarFocused}
-                onFocusChange={this.onFocusChange}
-                numberOfMonths={1}
-            />
-        </Grid>
+                    <Grid
+                        container
+                        direction="row"
+                        justify="space-between"
+                        alignItems="center"
+                    >
+                        <Typography variant="title">Help needed earliest:  </Typography>
+                        <SingleDatePicker
+                            date={this.state.createdAt}
+                            onDateChange={this.onDateChange}
+                            focused={this.state.calendarFocused}
+                            onFocusChange={this.onFocusChange}
+                            numberOfMonths={1}
+                        />
+                    </Grid>
                     <Grid
                         container
                         direction="column"
                         justify="center"
                         alignItems="center"
                     >
-                        <Button className={classes.submitButton} type="submit" variant="contained" color="secondary">Submit</Button>
+                        <Button className={classes.submitButton} type="submit" variant="contained" color="secondary">{this.props.editing ? 'Update' : 'Submit'}</Button>
                     </Grid>
                 </form>
 
