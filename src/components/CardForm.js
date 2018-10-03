@@ -110,13 +110,14 @@ class CardForm extends React.Component {
                 location: this.props.location.userLocation
             });
         }
+        window.location.reload();
     };
 
     render() {
         const { classes } = this.props;
         return (
             <div>
-                {this.props.editing ? <Typography variant="display2" gutterBottom className={classes.header}>Edit task announcement</Typography>: <Typography variant="display2" gutterBottom className={classes.header}>Add task announcement</Typography>}
+                {this.props.editing ? <Typography variant="display2" gutterBottom className={classes.header}>Edit task announcement</Typography> : <Typography variant="display2" gutterBottom className={classes.header}>Add task announcement</Typography>}
                 {this.state.error && <p>{this.state.error}</p>}
 
                 <form action="" onSubmit={this.onSubmit}>
@@ -155,21 +156,21 @@ class CardForm extends React.Component {
                     <div style={{ height: 200 }}>
                         <MapContainer />
                     </div>
-        <Grid
-            container
-            direction="row"
-            justify="space-between"
-            alignItems="center"
-        >
-            <Typography variant="title">Help needed earliest:  </Typography>
-            <SingleDatePicker
-                date={this.state.createdAt}
-                onDateChange={this.onDateChange}
-                focused={this.state.calendarFocused}
-                onFocusChange={this.onFocusChange}
-                numberOfMonths={1}
-            />
-        </Grid>
+                    <Grid
+                        container
+                        direction="row"
+                        justify="space-between"
+                        alignItems="center"
+                    >
+                        <Typography variant="title">Help needed earliest:  </Typography>
+                        <SingleDatePicker
+                            date={this.state.createdAt}
+                            onDateChange={this.onDateChange}
+                            focused={this.state.calendarFocused}
+                            onFocusChange={this.onFocusChange}
+                            numberOfMonths={1}
+                        />
+                    </Grid>
                     <Grid
                         container
                         direction="column"
