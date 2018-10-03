@@ -3,7 +3,7 @@
     "cards": {
       ".read": "auth != null",
       "$card_ui": {
-        ".write": "!data.exists() || !newData.exists() || data.child('uid').val() === auth.uid"
+        ".write": "!data.exists() || !newData.exists() || data.child('userId').val() === auth.uid"
       }
     },
     "users": {
