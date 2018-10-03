@@ -18,7 +18,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import red from '@material-ui/core/colors/red';
 
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import EditIcon from '@material-ui/icons/Edit';
 import MessageIcon from '@material-ui/icons/Message';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -148,7 +147,7 @@ class RecipeReviewCard extends React.Component {
                                                         <MenuItem onClick={() => {
                                                             this.props.dispatch(startRemoveCard({ id: this.props.id }));
                                                         }}>Delete</MenuItem>
-                                                    ) :null}
+                                                    ) : null}
                                                 </MenuList>
                                             </ClickAwayListener>
                                         </Paper>
@@ -171,51 +170,50 @@ class RecipeReviewCard extends React.Component {
                     </Typography>
                 </CardContent>
                 <CardActions className={classes.actions} disableActionSpacing>
-                    <IconButton aria-label="Add to favorites">
-                        <FavoriteIcon />
-                    </IconButton>
                     {this.state.editable ? (
-                        <Link to={`/edit/${this.props.id}`}>
-                            <IconButton aria-label="Edit">
-                                <EditIcon />
-                            </IconButton>
-                        </Link>
-                    ) : (
-                        <div><Tooltip title="Contact user" placement="right">
-                            <IconButton aria-label="Add to favorites" onClick={this.handleClickOpen}>
-                                <MessageIcon />
-                            </IconButton>
+                        <Tooltip title="Contact user" placement="right">
+                            <Link to={`/edit/${this.props.id}`}>
+                                <IconButton aria-label="Edit">
+                                    <EditIcon />
+                                </IconButton>
+                            </Link>
                         </Tooltip>
-                            <Dialog
-                                fullScreen={fullScreen}
-                                open={this.state.open}
-                                onClose={this.handleClose}
-                                aria-labelledby="responsive-dialog-title"
-                            >
-                                <DialogTitle id="responsive-dialog-title">{"Contact information"}</DialogTitle>
-                                <DialogContent>
-                                    <CardHeader avatar={
-                                        <Avatar src={this.props.userImg} className={classes.avatar} />
-                                    }
-                                                title={this.props.userName}
-                                    />
-                                    <DialogContentText>
-                                        {this.props.userPhone}
-                                    </DialogContentText>
-                                    <DialogContentText>
-                                        {this.props.userEmail}
-                                    </DialogContentText>
-                                </DialogContent>
-                                <DialogActions>
-                                    <Button onClick={this.handleCall} color="primary">
-                                        Call
+                    ) : (
+                            <div><Tooltip title="Contact user" placement="right">
+                                <IconButton aria-label="Add to favorites" onClick={this.handleClickOpen}>
+                                    <MessageIcon />
+                                </IconButton>
+                            </Tooltip>
+                                <Dialog
+                                    fullScreen={fullScreen}
+                                    open={this.state.open}
+                                    onClose={this.handleClose}
+                                    aria-labelledby="responsive-dialog-title"
+                                >
+                                    <DialogTitle id="responsive-dialog-title">{"Contact information"}</DialogTitle>
+                                    <DialogContent>
+                                        <CardHeader avatar={
+                                            <Avatar src={this.props.userImg} className={classes.avatar} />
+                                        }
+                                            title={this.props.userName}
+                                        />
+                                        <DialogContentText>
+                                            {this.props.userPhone}
+                                        </DialogContentText>
+                                        <DialogContentText>
+                                            {this.props.userEmail}
+                                        </DialogContentText>
+                                    </DialogContent>
+                                    <DialogActions>
+                                        <Button onClick={this.handleCall} color="primary">
+                                            Call
                                     </Button>
-                                    <Button onClick={this.handleEmail} color="primary" autoFocus>
-                                        Email
+                                        <Button onClick={this.handleEmail} color="primary" autoFocus>
+                                            Email
                                     </Button>
-                                </DialogActions>
-                            </Dialog>
-                        </div>)}
+                                    </DialogActions>
+                                </Dialog>
+                            </div>)}
                     <IconButton
                         className={classnames(classes.expand, {
                             [classes.expandOpen]: this.state.expanded,
@@ -233,7 +231,7 @@ class RecipeReviewCard extends React.Component {
                             {this.props.note}
                         </Typography>
                         <div style={{ height: 200 }}>
-                            <CardMap isCard={true} lat= {this.props.location.lat} lng= {this.props.location.lng} cards={[{location:this.props.location}]} height={200} width={200}/>
+                            <CardMap isCard={true} lat={this.props.location.lat} lng={this.props.location.lng} cards={[{ location: this.props.location }]} height={200} width={200} />
                         </div>
                     </CardContent>
                 </Collapse>
