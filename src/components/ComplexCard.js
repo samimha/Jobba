@@ -23,6 +23,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
+import ShareIcon from '@material-ui/icons/Share';
 
 const styles = theme => ({
     card: {
@@ -81,11 +82,11 @@ class RecipeReviewCard extends React.Component {
         this.setState({ open: false });
     };
     handleEmail = () => {
-        window.location.href = "mailto:"+this.props.userEmail+"?Subject=Offering help to " + this.props.description;
+        window.location.href = "mailto:" + this.props.userEmail + "?Subject=Offering help to " + this.props.description;
         this.setState({ open: false });
     };
     handleCall = () => {
-        window.location.href = "tel:"+this.props.userPhone;
+        window.location.href = "tel:" + this.props.userPhone;
         this.setState({ open: false });
     };
 
@@ -122,44 +123,50 @@ class RecipeReviewCard extends React.Component {
                     </Typography>
                 </CardContent>
                 <CardActions className={classes.actions} disableActionSpacing>
-                    <Tooltip title="Contact user" placement="right">
-                        <IconButton aria-label="Add to favorites" onClick={this.handleClickOpen}>
-                            <MessageIcon />
-                        </IconButton>
-                    </Tooltip>
-                    <Dialog
-                        fullScreen={fullScreen}
-                        open={this.state.open}
-                        onClose={this.handleClose}
-                        aria-labelledby="responsive-dialog-title"
-                    >
-                        <DialogTitle id="responsive-dialog-title">{"Contact information"}</DialogTitle>
-                        <DialogContent>
-                            <CardHeader avatar={
-                                <Avatar src={this.props.userImg} className={classes.avatar} />
-                            }
-                                title={this.props.userName}
-                            ></CardHeader>
-                            <DialogContentText>
-                                {this.props.userPhone}
-                            </DialogContentText>
-                            <DialogContentText>
-                                {this.props.userEmail}
-                            </DialogContentText>
-                        </DialogContent>
-                        <DialogActions>
-                            <Button onClick={this.handleCall} color="primary">
-                                Call
+
+                    {this.state.editable ? (
+                        <Link to={`/edit/${this.props.id}`}>
+                            <IconButton aria-label="Edit">
+                                <ShareIcon />
+                            </IconButton>
+                        </Link>
+                    ) : (
+                            <div><Tooltip title="Contact user" placement="right">
+                                <IconButton aria-label="Add to favorites" onClick={this.handleClickOpen}>
+                                    <MessageIcon />
+                                </IconButton>
+                            </Tooltip>
+                                <Dialog
+                                    fullScreen={fullScreen}
+                                    open={this.state.open}
+                                    onClose={this.handleClose}
+                                    aria-labelledby="responsive-dialog-title"
+                                >
+                                    <DialogTitle id="responsive-dialog-title">{"Contact information"}</DialogTitle>
+                                    <DialogContent>
+                                        <CardHeader avatar={
+                                            <Avatar src={this.props.userImg} className={classes.avatar} />
+                                        }
+                                            title={this.props.userName}
+                                        ></CardHeader>
+                                        <DialogContentText>
+                                            {this.props.userPhone}
+                                        </DialogContentText>
+                                        <DialogContentText>
+                                            {this.props.userEmail}
+                                        </DialogContentText>
+                                    </DialogContent>
+                                    <DialogActions>
+                                        <Button onClick={this.handleCall} color="primary">
+                                            Call
                             </Button>
-                            <Button onClick={this.handleEmail} color="primary" autoFocus>
-                                Email
+                                        <Button onClick={this.handleEmail} color="primary" autoFocus>
+                                            Email
                             </Button>
-                        </DialogActions>
-                    </Dialog>
-                    <IconButton aria-label="Add to favorites">
-                        <FavoriteIcon />
-                    </IconButton>
-                    {this.state.editable ? (<Link to={`/edit/${this.props.id}`}><IconButton aria-label="Edit"><ShareIcon /></IconButton></Link>) : null}
+                                    </DialogActions>
+                                </Dialog>
+                            </div>)}
+
                     <IconButton
                         className={classnames(classes.expand, {
                             [classes.expandOpen]: this.state.expanded,
