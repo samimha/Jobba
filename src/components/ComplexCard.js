@@ -3,6 +3,12 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import Card from '@material-ui/core/Card';
+import Paper from '@material-ui/core/Paper';
+import Popper from '@material-ui/core/Popper';
+import Grow from '@material-ui/core/Grow';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import MenuList from '@material-ui/core/MenuList';
+import MenuItem from '@material-ui/core/MenuItem';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
@@ -17,6 +23,9 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CardMap from "./CardMap";
 import { Link } from 'react-router-dom';
+
+import { connect } from 'react-redux';
+import { startRemoveCard } from '../actions/cards';
 
 const styles = theme => ({
     card: {
@@ -50,26 +59,35 @@ const styles = theme => ({
 
 class RecipeReviewCard extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
     }
     state = {
         editable: !!this.props.editable,
         expanded: false,
-        anchorEl: null
+        open: false,
+        id: this.props.id
     };
 
     handleExpandClick = () => {
         this.setState(state => ({ expanded: !state.expanded }));
     };
 
-    handleClick = event => {
-        this.setState({ anchorEl: event.currentTarget });
+    handleToggle = () => {
+        this.setState(state => ({ open: !state.open }));
+    };
+
+    handleClose = event => {
+        if (this.anchorEl.contains(event.target)) {
+            return;
+        }
+
+        this.setState({ open: false });
     };
 
     render() {
         const { classes } = this.props;
+        const { open } = this.state;
         const date = new Date(this.props.createdAt);
-        console.log(date.toString());
 
         return (
             <Card className={classes.card}>
@@ -78,14 +96,40 @@ class RecipeReviewCard extends React.Component {
                         <Avatar src={this.props.userImg} className={classes.avatar}/>
                     }
                     action={
-                        <IconButton
-                            aria-label="More"
-                            aria-owns={open ? 'long-menu' : null}
-                            aria-haspopup="true"
-                            onClick={this.handleClick}
-                        >
-                            <MoreVertIcon />
-                        </IconButton>
+                        <div>
+                            <IconButton
+                                aria-label="More"
+                                buttonRef={node => {
+                                    this.anchorEl = node;
+                                }}
+                                aria-owns={open ? 'menu-list-grow' : null}
+                                aria-haspopup="true"
+                                onClick={this.handleToggle}
+                            >
+                                <MoreVertIcon />
+                            </IconButton>
+                            <Popper open={open} anchorEl={this.anchorEl} transition disablePortal>
+                                {({ TransitionProps, placement }) => (
+                                    <Grow
+                                        {...TransitionProps}
+                                        id="menu-list-grow"
+                                        style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                                    >
+                                        <Paper>
+                                            <ClickAwayListener onClickAway={this.handleClose}>
+                                                <MenuList>
+                                                    {this.state.editable ? (
+                                                        <MenuItem onClick={() => {
+                                                            this.props.dispatch(startRemoveCard({ id: this.props.id }));
+                                                        }}>Delete</MenuItem>
+                                                    ) :null}
+                                                </MenuList>
+                                            </ClickAwayListener>
+                                        </Paper>
+                                    </Grow>
+                                )}
+                            </Popper>
+                        </div>
                     }
                     title={this.props.userName}
                     subheader={date.toLocaleDateString()}
@@ -131,8 +175,17 @@ class RecipeReviewCard extends React.Component {
     }
 }
 
+const mapStateToProps = (state, props) => {
+    return {
+        expense: state.cards.find((card) => {
+            return card.id === props.id;
+        })
+    };
+};
+
 RecipeReviewCard.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(RecipeReviewCard);
+
+export default connect(mapStateToProps)(withStyles(styles)(RecipeReviewCard));

@@ -11,7 +11,7 @@ const CardList = (props) => (
             direction="column"
             justify="center"
             alignItems="center"
-        >{console.log(props.cards)}
+        >
             {props.cards.map((card) => {
                 return (
                     <Grid>

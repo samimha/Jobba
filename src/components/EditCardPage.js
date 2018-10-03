@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CardForm from './CardForm';
-import { startEditCard, startRemoveCard } from '../actions/cards';
+import { startEditCard } from '../actions/cards';
 
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
