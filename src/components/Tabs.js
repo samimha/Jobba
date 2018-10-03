@@ -43,6 +43,7 @@ class SimpleTabs extends React.Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Tabs centered value={value} onChange={this.handleChange}>
+          <Tab label="Map" className={classes.tabLink}  component={NavLink} to="/map"/>
           <Tab label="Feed" className={classes.tabLink}  component={NavLink} to="/dashboard"/>
             <Tab label="New Jobi" className={classes.tabLink}  component={NavLink} to="/create"/>
             <Tab label="My tasks" className={classes.tabLink}  component={NavLink} to="/tasks"/>

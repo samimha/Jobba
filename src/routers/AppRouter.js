@@ -11,6 +11,7 @@ import LoginPage from "../components/LoginPage";
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import MyTasksPage from "../components/MyTasksPage";
+import onMapPage from "../components/onMapPage";
 
 export const history = createHistory();
 
@@ -26,6 +27,7 @@ class AppRouter extends React.Component {
                         <PrivateRoute path="/create" component={AddCardPage}/>
                         <PrivateRoute path="/edit/:id" component={EditCardPage}/>
                         <PrivateRoute path="/tasks" component={MyTasksPage}/>
+                        <PrivateRoute path="/map" component={onMapPage}/>
                         {/*<Route path="/help" component={HelpPage}/>*/}
                         <Route component={NotFoundPage}/>
                     </Switch>
