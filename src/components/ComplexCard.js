@@ -161,7 +161,7 @@ class RecipeReviewCard extends React.Component {
                             {this.props.note}
                         </Typography>
                         <div style={{ height: 200 }}>
-                            <CardMap location={this.props.location} />
+                            <CardMap isCard={true} lat= {this.props.location.lat} lng= {this.props.location.lng} cards={[{location:this.props.location}]} height={200} width={200}/>
                         </div>
                     </CardContent>
                 </Collapse>
